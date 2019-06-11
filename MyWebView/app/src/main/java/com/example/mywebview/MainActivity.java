@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // Enable pinch to zoom setting
         webview.getSettings().setBuiltInZoomControls(true);
 
-        webview.loadUrl("https://www.youtube.com/");
+        webview.loadUrl("https://youtube.com/");
     }
 
     @Override

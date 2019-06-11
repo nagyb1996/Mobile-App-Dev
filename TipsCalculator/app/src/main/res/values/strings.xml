@@ -11,7 +11,7 @@
     <string name="reset_button_label">RESET</string>
     <string name="tip_without_adjustment_label">Tip Without Adjustment</string>
     <string name="tip_with_adjustment_label">Tip With Adjustment</string>
-
+    <string name="result_title">Tip Per Person:</string>
 
 
 </resources>
