@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TipsCalculator</string>
+    <string name="title_activity_calculator">Calculator</string>
+    <string name="title_activity_result">Result</string>
+    <string name="calculator_title">Tip Per Person Calculator</string>
+    <string name="bill_total_label">Bill Total</string>
+    <string name="tip_percent_label">Tip Percentage</string>
+    <string name="number_people_label">Number Of People</string>
+    <string name="calculator_button_label">CALCULATE</string>
+    <string name="gratuity_switch_label_yes">Yes</string>
+    <string name="reset_button_label">RESET</string>
+    <string name="tip_without_adjustment_label">Tip Without Adjustment</string>
+    <string name="tip_with_adjustment_label">Tip With Adjustment</string>
+
+
+
+</resources>

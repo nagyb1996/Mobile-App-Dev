@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lab_MyCalculator</string>
+    <string name="title_activity_calculator">Calculator</string>
+    <string name="title_activity_result">Result</string>
+    <string name="calculator_header">Calculate Standard Weight</string>
+    <string name="result_gender">You are </string>
+    <string name="result_height">Your height is</string>
+    <string name="result_weight">The standard weight is</string>
+    <string name="calculator_button">CALCULATE</string>
+    <string name="result_button">RESET</string>
+    <string name="gender_label">Gender</string>
+    <string name="height_label">Height</string>
+    <string name="radio_male_label">Male</string>
+    <string name="radio_female_label">Female</string>
+</resources>
