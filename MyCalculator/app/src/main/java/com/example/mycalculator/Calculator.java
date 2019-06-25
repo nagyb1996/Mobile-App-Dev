@@ -74,6 +74,23 @@ public class Calculator extends AppCompatActivity {
                 if (TextUtils.isEmpty(feet.getText().toString())) {
                     feet.setError("Height in feet cannot be empty"); // throw error if empty
                     return;
+                }
+                // if there is an input, check that it is an integer
+                else {
+
+                    try {
+                        Integer.parseInt(feet.getText().toString());
+                    } catch (Exception E) {
+                        feet.setError("Height in feet must be an integer");
+                        return;
+                    }
+
+                }
+
+                // ensure that height in feet is greater than zero
+                if (Integer.valueOf(feet.getText().toString()) < 1) {
+                    feet.setError("Height in feet must be greater than or equal to one"); // throw error less than 1
+                    return;
                 } else {
                     entered_feet = Integer.valueOf(feet.getText().toString()); // retrieve height in feet entered
                 }
@@ -83,11 +100,41 @@ public class Calculator extends AppCompatActivity {
                 if (TextUtils.isEmpty(inches.getText().toString())) {
                     inches.setError("Height in inches cannot be empty"); // throw error if empty
                     return;
+                }
+                // if there is an input, check that it is an integer
+                else {
+
+                    try {
+                        Integer.parseInt(inches.getText().toString());
+                    } catch (Exception E) {
+                        inches.setError("Height in inches must be an integer");
+                        return;
+                    }
+
+                }
+
+                // ensure that height in inches is greater than zero
+                if (Integer.valueOf(inches.getText().toString()) < 1) {
+                    inches.setError("Height in inches must be greater than or equal to one"); // throw error less than 1
+                    return;
                 } else {
-                    entered_inches = Integer.valueOf(inches.getText().toString()); // retrieve height in inches entered
+                    entered_inches = Integer.valueOf(inches.getText().toString()); // retrieve height in feet entered
                 }
 
                 int height_inches = ((entered_feet * 12) + (entered_inches)); // combine retrieved values to find entered height in inches
+
+                // ensure that the entered height is not less than minimum, as a negative weight will be returned
+                if (gender == 0) { // for females, the minimum height is 3'5"
+                    if (height_inches < 41) {
+                        feet.setError(" Minimum height for females is 3'5'' "); // throw error less than 1
+                        return;
+                    }
+                } else { // for males, the minimum height is 3'3"
+                    if (height_inches < 39) {
+                        feet.setError(" Minimum height for males is 3'3'' "); // throw error less than 1
+                        return;
+                    }
+                }
 
                 // print entered and calculated value to log
                 Log.v("myApp", "entered feet " + entered_feet);
