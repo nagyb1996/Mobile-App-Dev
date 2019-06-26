@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 
 public class Result extends AppCompatActivity {
 
-    // define decimal formal to display ideal weight with two decimal places
+    // define decimal formal to display ideal weight with one decimal place
     private static DecimalFormat df = new DecimalFormat("0.0");
 
     @Override
