@@ -20,7 +20,7 @@ public class GridItemAdapter extends ArrayAdapter<GridItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        // Get data
+        // Retrieve data
         GridItem item = getItem(position);
 
         // Use layout file to generate View

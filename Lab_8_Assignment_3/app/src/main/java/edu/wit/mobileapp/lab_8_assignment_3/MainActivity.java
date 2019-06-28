@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create image & place it at /res/drawable
-        final Bitmap defaultImage = BitmapFactory.decodeResource(getResources(), R.drawable.catbounce);
+        final Bitmap CAT = BitmapFactory.decodeResource(getResources(), R.drawable.catbounce);
 
         // String to store date from device
         final Date date = Calendar.getInstance().getTime();
@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Create testing data
         List<GridItem> list = new ArrayList<>();
-        for (int i = 1; i < 20; i++) {
+        for (int i = 1; i < 50; i++) {
             GridItem gridItem = new GridItem();
-            gridItem.image = defaultImage;
-            gridItem.name = "Title-" + i;
+            gridItem.image = CAT;
+            gridItem.name = "CAT-"+ i;
             gridItem.date = formattedDate;
             list.add(gridItem);
         }
