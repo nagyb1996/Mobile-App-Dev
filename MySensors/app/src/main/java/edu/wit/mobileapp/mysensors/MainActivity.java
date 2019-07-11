@@ -1,6 +1,8 @@
 package edu.wit.mobileapp.mysensors;
 
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,46 +11,48 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager mgr;
+    private Sensor light;
+    private TextView text;
+    private StringBuilder msg = new StringBuilder(2048);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView text = (TextView) findViewById(R.id.text);
-        SensorManager mgr = (SensorManager) this.getSystemService(SENSOR_SERVICE);
-        List<Sensor> sensors = mgr.getSensorList(Sensor.TYPE_ALL);
-        StringBuilder message = new StringBuilder(2048);
-        message.append("The sensors on this device are:\n");
-        message.append("================================== \n\n");
-        for (Sensor sensor : sensors) {
-            message.append(sensor.getName() + "\n");
-            message.append(" Type: " + sensorTypes.get(sensor.getType()) + "\n");
-            message.append(" Vendor: " + sensor.getVendor() + "\n");
-            message.append(" Version: " + sensor.getVersion() + "\n");
-            message.append(" Resolution: " + sensor.getResolution() + "\n");
-            message.append(" Max Range: " + sensor.getMaximumRange() + "\n");
-            message.append(" Power: " + sensor.getPower() + "mA\n\n");
-        }
-        text.setText(message);
 
+        mgr = (SensorManager) this.getSystemService(SENSOR_SERVICE);
+        light = mgr.getDefaultSensor(Sensor.TYPE_LIGHT);
+        text = findViewById(R.id.text);
     }
 
-    private HashMap<Integer, String> sensorTypes = new HashMap<Integer, String>();
-    {
-        sensorTypes.put(Sensor.TYPE_ACCELEROMETER, "TYPE_ACCELEROMETER");
-        sensorTypes.put(Sensor.TYPE_AMBIENT_TEMPERATURE, "TYPE_AMBIENT_TEMPERATURE");
-        sensorTypes.put(Sensor.TYPE_GRAVITY, "TYPE_GRAVITY");
-        sensorTypes.put(Sensor.TYPE_GYROSCOPE, "TYPE_GYROSCOPE");
-        sensorTypes.put(Sensor.TYPE_LIGHT, "TYPE_LIGHT");
-        sensorTypes.put(Sensor.TYPE_LINEAR_ACCELERATION, "TYPE_LINEAR_ACCELERATION");
-        sensorTypes.put(Sensor.TYPE_MAGNETIC_FIELD, "TYPE_MAGNETIC_FIELD");
-        sensorTypes.put(Sensor.TYPE_ORIENTATION, "TYPE_ORIENTATION (deprecated)");
-        sensorTypes.put(Sensor.TYPE_PRESSURE, "TYPE_PRESSURE");
-        sensorTypes.put(Sensor.TYPE_PROXIMITY, "TYPE_PROXIMITY");
-        sensorTypes.put(Sensor.TYPE_RELATIVE_HUMIDITY, "TYPE_RELATIVE_HUMIDITY");
-        sensorTypes.put(Sensor.TYPE_ROTATION_VECTOR, "TYPE_ROTATION_VECTOR");
-        sensorTypes.put(Sensor.TYPE_TEMPERATURE, "TYPE_TEMPERATURE (deprecated)");
+    @Override
+    protected void onResume(){
+        mgr.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+       mgr.unregisterListener(this,light);
+        super.onPause();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event){
+        msg.append("Got a sensor event: " + event.values[0] + " SI lux units\n");
+        text.setText(msg);
+        text.invalidate();
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy){
+        msg.insert(0, sensor.getName() + " accuracy changed: " + accuracy +
+                (accuracy ==1?" (LOW":(accuracy==2?" (MED":" (HIGH)")) + "\n");
+        text.setText(msg);
+        text.invalidate();
     }
 
 }
